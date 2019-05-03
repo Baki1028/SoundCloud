@@ -5,6 +5,7 @@
 import requests, re, json
 from mutagen.mp3 import MP3
 from mutagen.id3 import ID3, APIC, error
+from mutagen.easyid3 import EasyID3
 
 URL = 'https://soundcloud.com/choicescarf/azure-heart'
 
@@ -36,6 +37,7 @@ class Sound(object):
 	def setImage(self):
 		self.getImage()
 		self.settingImage()
+		self.setTitleAndAlbum()
 	
 	def getHTML(self):
 		res = requests.get(self.URL)
@@ -146,6 +148,15 @@ class Sound(object):
 		)
 		
 		mp3.save()
+
+	def setTitleAndAlbum(self):
+
+		mp3 = EasyID3('./{}.mp3'.format(self.soundName))
+		mp3['title'] = self.soundName
+		mp3['website'] = self.soundURL
+
+		mp3.save()
+
 		
 if __name__ == '__main__':
 	import sys
