@@ -149,12 +149,10 @@ class Sound(object):
 		
 if __name__ == '__main__':
 	import sys
-	a = sys.argv
-	if len(a) > 1:
-		for i in range(len(a)):
-			if i == 0:
-				continue
-			Sound(a[i]).get()
+	a = sys.argv.pop()
+	if len(a) > 0:
+		for i in a:
+			Sound(a).get()
 	else:
 		print('input url')
 		pass
